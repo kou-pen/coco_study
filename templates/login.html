@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block content %}
+<form action="/login" method="POST">
+    <div class="form-group">
+        <label for="InputTitle">ID</label>
+        <input type="text" class="form-control" id="InputTitle" name="username">
+    </div>
+
+    <div class="form-group">
+        <label for="InputPassword">パスワード</label>
+        <input type="password" class="form-control" id="InputPassword" name="password">
+    </div>
+    <div class="form-group">
+        <p>Oとoと0、Iとiと1、bと6、qとgと9、qとp、Kとk、半角全角、スペースなどの間違い注意！</p>
+    </div>
+    <button type="submit" class="btn btn-primary">ログインする</button>
+</form>
+{% endblock %}

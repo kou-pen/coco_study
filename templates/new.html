@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+{% block content %}
+<form action="{{url_for('add_entry')}}" method="POST" class="add-entry" name="addrecord">
+    <div class="form-group">
+        <label for="InputSubject">教科</label>
+        <select class="form-control" id="InputSubject" name="subject">
+            <option value="国語">国語</option>
+            <option value="数学">数学</option>
+            <option value="理科">理科</option>
+            <option value="社会">社会</option>
+            <option value="英語">英語</option>
+            <option value="資格取得">資格取得</option>
+            <option value="塾">塾</option>
+            <option value="自主学習">自主学習</option>
+            <option value="その他">その他</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="Inputlong">勉強した長さ(分)</label>
+        <input type="number" class="form-control" id="Inputlong" name="long">
+
+    </div>
+    <div class="form-group">
+        <label for="inputcomment">一言</label>
+        <input type="text" class="form-control" id="Inputcomment" name="comment">
+    </div>
+    <button type="submit" class="btn btn-primary">勉強した！！！！</button>
+</form>
+<div class="form-group">
+    <p id="PassageArea">(ボタンを押して時間を記録)</p>
+    <p>
+        <input type="button" class="btn btn-secondary" value="カウント開始/リセット" id="startcount" onclick="startShowing();">
+        <input type="button" class="btn btn-danger" value="カウント終了" id="record" onclick="record();">
+    </p>
+</div>
+ 
+ 
+<script type="text/javascript">
+    var PassSec;   // 秒数カウント用変数
+    
+    // 繰り返し処理の中身
+    function showPassage() {
+        PassSec++;   // カウントアップ
+        var msg = "現在" + PassSec + "秒勉強しています";   // 表示文作成
+        document.getElementById("PassageArea").innerHTML = msg;   // 表示更新
+    }
+    
+    // 繰り返し処理の開始
+    function startShowing() {
+        PassSec = 0;   // カウンタのリセット
+        PassageID = setInterval('showPassage()',1000);   // タイマーをセット(1000ms間隔)
+        document.getElementById("startcount").disabled = true;   // 開始ボタンの無効化
+    }
+    
+    // 繰り返し処理の中止
+    function stopShowing() {
+        clearInterval( PassageID );   // タイマーのクリア
+        document.getElementById("startcount").disabled = false;   // 開始ボタンの有効化
+    }
+
+    function record(){
+        clearInterval( PassageID );   // タイマーのクリア
+        document.getElementById("startcount").disabled = false;
+        msg = PassSec + "秒" + "勉強しました！"
+        document.getElementById("PassageArea").innerHTML = msg;
+        PassSec = Math.floor(PassSec / 60)
+        document.addrecord.Inputlong.value = PassSec;
+
+    }
+</script>
+{% endblock %}

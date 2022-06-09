@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+<ul class="list-group list-group-flush">
+    {% block content %}
+    <h7 class="fs-6">{{whois}}としてログイン中</h7>
+    {% for entry in entries %}
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ entry.id }}:{{ entry.created_by }}さんが、{{ entry.subject }}を{{ entry.long }}分学習しました！</h5>
+            <h6 class="card-text">一言:{{ entry.comment }}</h6>
+            <h7 class="fs-6">記録日時JST:{{ entry.created_at }}</h7>
+        </div>
+    </div>
+    {% else %}
+    <h3>投稿がありません。みんなで勉強しよう！！</h3>
+    {% endfor %}
+
+</ul>
+{% endblock %}
